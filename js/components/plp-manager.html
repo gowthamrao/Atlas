@@ -21,13 +21,13 @@
 		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'specification' }, click: function() { $component.tabMode('specification'); }">
 			<a>Specification</a>
 		</li>
-		<li role="presentation" data-bind="visible: false, css: { active: $component.tabMode() == 'inspector' }, click: function() { $component.tabMode('inspector'); }">
+		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'inspector' }, click: function() { $component.tabMode('inspector'); }">
 			<a>Inspector</a>
 		</li>
-		<li role="presentation" data-bind="visible: false, css: { active: $component.tabMode() == 'performance' }, click: function() { $component.tabMode('performance'); }">
+		<li role="presentation" data-bind="visible: config.plpResultsEnabled, css: { active: $component.tabMode() == 'performance' }, click: function() { $component.tabMode('performance'); }">
 			<a>Performance</a>
 		</li>
-		<li role="presentation" data-bind="css: { active: $component.tabMode() == 'export' }, click: function() { $component.tabMode('export') };"><a>Utilities</a>
+		<li role="presentation" data-bind="visible: config.plpResultsEnabled, css: { active: $component.tabMode() == 'export' }, click: function() { $component.tabMode('export') };"><a>Utilities</a>
 		</li>
 	</ul>
 
@@ -36,13 +36,13 @@
 			<plp-spec-editor params="patientLevelPrediction: patientLevelPrediction"></plp-spec-editor>
 		</div>
 		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'inspector' }" class="tab-pane">
-			<!--<plp-inspector params="modelId:modelId"></plp-inspector>-->
+			<plp-inspector params="modelId:$component.patientLevelPredictionId()"></plp-inspector>
 		</div>
 		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'performance' }" class="tab-pane">
 
 			<ul class="nav nav-pills">
 				<li role="presentation" data-bind="css: {active: $component.performanceTabMode() == 'discrimination'}, click: function() {$component.performanceTabMode('discrimination')};">
-					<a> Discrimination</a>
+					<a>Discrimination</a>
 				</li>
 				<li role="presentation" data-bind="css: {active: $component.performanceTabMode() == 'calibration'}, click: function() {$component.performanceTabMode('calibration')};">
 					<a>Calibration</a>
@@ -50,10 +50,10 @@
 			</ul>
 
 			<div data-bind="if: $component.performanceTabMode() == 'discrimination'">
-				<!--<plp-roc params="modelId:modelId"></plp-roc>-->
+				<plp-roc params="modelId:$component.patientLevelPredictionId()"></plp-roc>
 			</div>
 			<div data-bind="if: $component.performanceTabMode() == 'calibration'">
-				<!--<plp-calibration params="modelId:modelId"></plp-calibration>-->
+				<plp-calibration params="modelId:$component.patientLevelPredictionId()"></plp-calibration>
 			</div>
 		</div>
 		<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'export' }" class="tab-pane">
